@@ -30,6 +30,17 @@ Serve para qualquer ramo: atendente de WhatsApp, prospector, gerador de proposta
 - Pasta: [squad-openbot-video-07](squad-openbot-video-07)
 - Link para mandar ao Maestro: `https://raw.githubusercontent.com/dilandia/klaus-labs/main/squad-openbot-video-07/02-BLUEPRINT-SQUAD-INSTAGRAM.md`
 
+### 3. Segundo Cérebro
+
+[![Segundo Cérebro](imagens/segundo-cerebro.jpg)](segundo-cerebro)
+
+**A memória permanente do seu agente.** Uma pasta com poucos arquivos de texto que o agente lê no começo de toda conversa e atualiza no fim: quem é você, o que o negócio vende, o que está em andamento e os erros que ele não pode repetir. Ele para de esquecer e fica mais afiado no seu negócio a cada semana. Presente dos 100 membros da comunidade gratuita.
+
+Funciona no OpenBot, Hermes, Claude Code, Codex, Cursor, Gemini CLI, ChatGPT, Claude e Gemini.
+
+- Pasta: [segundo-cerebro](segundo-cerebro)
+- Link para mandar ao seu agente: `https://raw.githubusercontent.com/dilandia/klaus-labs/main/segundo-cerebro/segundo-cerebro/SKILL.md`
+
 ---
 
 ## Como usar com o seu agente (sem baixar nada)
