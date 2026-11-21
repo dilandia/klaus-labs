@@ -1,4 +1,6 @@
-# Squad do zero no OpenBot (vídeo 7)
+![Squad de marketing no OpenBot](../imagens/squad-de-marketing-openbot.jpg)
+
+# Squad de marketing no OpenBot
 
 **Um time de 5 agentes que cuida do Instagram, montado por um agente coordenador.**
 
