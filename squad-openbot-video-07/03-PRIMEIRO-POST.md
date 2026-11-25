@@ -1,53 +1,41 @@
-# 03 · Primeiro post: 01 "Entre no laboratório"
+# 03 · Primeiro post e problemas comuns
 
-## O post
-| Item | Valor |
+Use depois que o Maestro montar o time e mostrar a tabela final.
+
+## Antes do primeiro post
+1. **Composio conectado.** Em Marketplace › Apps › composio, faça o login na sua conta Composio (grátis). Deixe marcado só o **IG · Publicador**.
+2. **Instagram conectado.** Peça ao Maestro o link de conexão do Instagram. Ele vale cerca de 10 minutos. Entre com a conta da marca e libere a Página do Facebook ligada a ela.
+3. **Conta profissional.** O Instagram precisa ser Empresa ou Criador de conteúdo, ligado a uma Página do Facebook. Conta pessoal não publica pela API.
+4. **Imagem com URL pública.** O Instagram baixa a imagem de um link. Veja os caminhos na skill `marca-instagram`, arquivo `references/url-publica.md` (está no anexo do blueprint). Google Drive e Dropbox não funcionam.
+
+## Rodar o primeiro post
+Escreva no chat do Maestro: **rodar o primeiro post**.
+
+1. **Estrategista:** briefing do post 01 com o primeiro tema que você passou. Formato estático (1 imagem), chamada = pergunta nos comentários.
+2. **Redator:** legenda, texto alternativo e checagem.
+3. **Diretor de Arte:** imagem 1080 × 1350 em JPEG e URL pública conferida.
+4. **Revisor de Marca:** checklist da marca. Se estiver tudo certo, monta o cartão final no canal.
+5. **Você:** teste a trava primeiro. Escreva "ok, legal": o Publicador tem que responder que está aguardando aprovação. Depois escreva **aprovado** (ou "ajusta: ...").
+6. **Publicador:** confere a conta, cria o post e publica. Manda o link no canal.
+7. **Estrategista:** fecha com o que saiu, o link e o próximo post sugerido.
+
+Saiu o primeiro? Ligue a rotina diária em Rotinas (ela é criada desligada).
+
+## Problemas comuns
+| O que aconteceu | O que fazer |
 |---|---|
-| Formato | Estático, 1080 × 1350 (4:5), JPEG, 391 KB |
-| Arquivo local | `C:\Users\Diego\Downloads\KLAUS AGENCIA\INSTAGRAM KLAUS LABS\posts\01-estatico-entre-no-laboratorio\slide-01.jpg` |
-| Versão 4K (não usar na API, passa de 1440 px) | `...\01-estatico-entre-no-laboratorio\4k\slide-01-2160x2700.jpg` |
-| URL pública (já no ar) | https://klausagencia.com.br/previa/klaus-labs-ig/post-01.jpg |
-| Pilar | Porta de entrada (apresentação da marca) |
-| CTA | Pergunta nos comentários |
-| Impulsionar? | Não (é a apresentação) |
+| "Encurte as instruções para 2.000 caracteres" | Cole nas instruções só o `01-COLAR-NO-MAESTRO.txt` (cerca de 1.900 caracteres). O blueprint vai no chat, nunca no campo de instruções |
+| O Maestro criou o time sem perguntar nada da marca | Diga: "pare, apague o que criou e comece pelas 5 perguntas da marca" |
+| O Maestro diz que não achou as skills | Elas estão no fim do blueprint, na seção "ANEXO: as 5 skills". Diga: "as skills estão no anexo do blueprint, crie os 7 arquivos de lá" |
+| A skill já existia na biblioteca | Peça para ele comparar e usar a versão do anexo |
+| Todos os agentes ganharam o Composio | Marketplace › Apps › composio: deixe marcado só o IG · Publicador |
+| "The MCP server composio needs a sign-in" | Marketplace › Apps › composio › entrar. Depois peça para testar de novo |
+| O link de conectar o Instagram não funciona | Ele vale cerca de 10 minutos. Peça um novo |
+| Erro de permissão ao publicar | Conta profissional, Página do Facebook ligada e todas as permissões marcadas no login |
+| "Mídia inválida" ou "Only photo or video can be accepted" | A imagem não está numa URL pública, ou é WebP. Use JPEG com link direto |
+| O Revisor devolve o post várias vezes | Confira se a skill anti-loop-squad está instalada em todos os agentes |
+| O OpenBot mostra "Continuar / Reatribuir / Cancelar tarefa" | Clique em Cancelar tarefa e peça de novo, numa tarefa mais curta |
+| Quero parar tudo agora | Escreva "pausa" no canal, ou crie um arquivo chamado `PAUSAR` na pasta do time |
+| A API travou e o post precisa sair | Imagem e legenda ficam prontas na pasta do time. Publique pelo app do Instagram |
 
-A URL foi conferida em 18/11/2026: responde 200, `Content-Type: image/jpeg`, 1080 × 1350, `noindex` (não aparece no Google). Fica no container de prévias da Klaus, pasta `previews/klaus-klaus-labs-ig/`, só com esse arquivo.
-
-## Legenda (670 caracteres, 4 hashtags)
-```
-Abri a porta do laboratório.
-
-O Klaus Labs é uma comunidade para quem quer colocar agentes de IA para trabalhar: na agenda, na loja virtual, no atendimento, no conteúdo, na empresa pequena que ainda faz tudo na mão.
-
-Aqui a gente monta o agente, testa com caso real, anota o que quebrou e conserta. Toda sexta entra um agente novo na biblioteca, pronto para usar.
-
-Neste perfil vou mostrar o que funciona, o que não funciona e como montar o seu, mesmo sem nunca ter programado.
-
-Segue o @klauslabs.ia e me conta nos comentários: qual tarefa você entregaria primeiro para um agente?
-
-klauslabs.com.br (link na bio)
-
-#agentesdeia #inteligenciaartificial #automacao #klauslabs
-```
-
-## Texto alternativo (até 100 caracteres)
-```
-Agentes de IA na bancada. Foto: laboratório escuro com prateleiras de frascos iluminados.
-```
-
-## Como o Publicador vai chamar o Composio
-1. `INSTAGRAM_GET_USER_INFO` → confere `username = klauslabs` e pega o `ig_user_id`.
-2. `INSTAGRAM_POST_IG_USER_MEDIA` com `ig_user_id`, `image_url = https://klausagencia.com.br/previa/klaus-labs-ig/post-01.jpg`, `caption = <legenda acima>`, `alt_text = <texto alternativo>` → devolve o `creation_id`.
-3. `INSTAGRAM_POST_IG_USER_MEDIA_PUBLISH` com `ig_user_id` e `creation_id` → post no ar.
-
-## Como subir a imagem de outros posts (quando precisar)
-A URL precisa abrir sem login e devolver o JPEG direto. Três caminhos, do mais rápido para o mais simples:
-
-1. **Prévia da Klaus (o que foi usado no post 01).** Peça ao Claude Code: "sobe o slide-01.jpg do post NN em /previa/klaus-labs-ig/post-NN.jpg". Ele copia para a VPS de prévias (pasta `previews/klaus-klaus-labs-ig/`, dono `tiago:tiago`, arquivo 644) e confere o 200.
-2. **Repositório público no GitHub.** Suba o JPEG num repositório público e use o link `raw.githubusercontent.com/...`. Funciona, mas a imagem fica pública para sempre.
-3. **Plano B ao vivo**: se a API recusar a URL, publique pelo app do Instagram no celular com a mesma imagem e legenda (o arquivo está na pasta do post). Na aula, isso vira um momento honesto: "a API travou, o time preparou tudo, eu só apertei publicar".
-
-Não use Google Drive, Dropbox ou WeTransfer: o link abre uma página HTML e a Meta recusa.
-
-## Observação de segurança
-A imagem do post 01 é pública de propósito (vai para o Instagram de qualquer jeito). Não suba para a prévia nada que não vá ser publicado.
+Nada resolveu? Copie a última mensagem de erro (sem chave nem senha) e poste em Dúvidas na comunidade: https://klauslabs.com.br/grupo
