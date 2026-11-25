@@ -1,0 +1,364 @@
+<title>Paperclip na Hostinger</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: bancada escura de laboratório. Uma coluna de passos numerados (é uma sequência real),
+   cada passo é uma "amostra" com etiqueta mono; blocos de comando em vidro carvão; tabela de erros no fim. */
+:root{
+  --bg:#0F1012; --panel:#1B1D21; --line:#2A2D33; --fg:#EFE9DF; --muted:#8C929B;
+  --brasa:#E8641C; --ambar:#F5A04A; --ok:#5FB37A; --code-bg:#141518;
+  --display:"Archivo","Arial Black",system-ui,sans-serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"Cascadia Code",Consolas,monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){
+  --bg:#EFE9DF; --panel:#F8F4EC; --line:#D9D1C4; --fg:#1B1D21; --muted:#5C6168;
+  --brasa:#C9500F; --ambar:#A8620F; --ok:#2F7D4A; --code-bg:#1B1D21; color-scheme:light } }
+:root[data-theme="light"]{
+  --bg:#EFE9DF; --panel:#F8F4EC; --line:#D9D1C4; --fg:#1B1D21; --muted:#5C6168;
+  --brasa:#C9500F; --ambar:#A8620F; --ok:#2F7D4A; --code-bg:#1B1D21; color-scheme:light }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+.wrap{max-width:820px;margin:0 auto}
+a{color:var(--brasa)}
+:focus-visible{outline:2px solid var(--brasa);outline-offset:2px}
+
+header{padding-block:48px 28px;display:grid;gap:18px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;font:600 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.kl{width:44px;height:44px;border:2px solid var(--brasa);position:relative;display:grid;place-items:center;
+  font:900 18px/1 var(--display);font-stretch:125%;color:var(--fg)}
+.kl small{position:absolute;top:3px;right:4px;font:600 8px/1 var(--mono);color:var(--brasa)}
+h1{font:850 clamp(34px,7vw,60px)/1.02 var(--display);font-stretch:125%;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1 em{font-style:normal;color:var(--brasa)}
+.lede{color:var(--muted);max-width:62ch;margin:0;font-size:17px}
+.progress{display:flex;align-items:center;gap:12px;font:600 13px/1 var(--mono);color:var(--muted)}
+.bar{flex:1;max-width:260px;height:6px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--brasa);transition:width .3s}
+
+.warn{margin-top:28px;display:grid;gap:6px;padding:16px 18px;border:1px solid var(--line);border-left:3px solid var(--ambar);background:var(--panel)}
+.warn b{font:600 12px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ambar)}
+.warn p{margin:0}
+
+h2{font:850 26px/1.1 var(--display);font-stretch:118%;margin:56px 0 8px;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 20px}
+
+ol.steps{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.step{background:var(--panel);border:1px solid var(--line);padding:18px 20px;display:grid;grid-template-columns:auto 1fr;gap:4px 16px}
+.step.done{border-color:color-mix(in srgb,var(--ok) 55%,var(--line))}
+.num{font:850 30px/1 var(--display);font-stretch:125%;color:var(--brasa);min-width:44px}
+.step.done .num{color:var(--ok)}
+.body{min-width:0;display:grid;gap:10px}
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.head h3{margin:0;font:700 19px/1.3 var(--body)}
+.tag{font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+label.check{display:inline-flex;align-items:center;gap:8px;font:600 13px/1 var(--mono);color:var(--muted);cursor:pointer;user-select:none;white-space:nowrap}
+label.check input{width:18px;height:18px;accent-color:var(--ok);cursor:pointer}
+.body p,.body ul{margin:0}
+.body ul{padding-left:20px;display:grid;gap:4px}
+.path{font:600 14px/1.4 var(--mono);color:var(--fg);background:color-mix(in srgb,var(--brasa) 14%,transparent);padding:1px 6px}
+code.i{font:14px var(--mono);background:var(--code-bg);color:#EFE9DF;padding:1px 6px}
+
+.code{position:relative;background:var(--code-bg);border:1px solid var(--line);min-width:0}
+.code pre{margin:0;padding:16px;overflow:auto;max-height:340px;font:13px/1.55 var(--mono);color:#EFE9DF;white-space:pre}
+.code.wrap-text pre{white-space:pre-wrap;word-break:break-word;font-family:var(--body);font-size:14px;line-height:1.6}
+.copy{position:absolute;top:8px;right:8px;font:600 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  background:var(--brasa);color:#0F1012;border:0;padding:9px 12px;cursor:pointer}
+.copy:hover{filter:brightness(1.1)}
+.copy.ok{background:var(--ok)}
+.meta{font:12px/1.4 var(--mono);color:var(--muted)}
+
+.table-wrap{overflow-x:auto;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--line)}
+th{font:600 11px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--panel)}
+td:first-child{font:13px/1.5 var(--mono);color:var(--ambar);width:38%;word-break:break-word}
+tr:last-child td{border-bottom:0}
+
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:12px/1.4 var(--mono);color:var(--muted)}
+.reset{background:none;border:1px solid var(--line);color:var(--muted);font:12px var(--mono);padding:6px 10px;cursor:pointer}
+@media (max-width:520px){ .step{grid-template-columns:1fr} .num{font-size:24px} }
+@media (prefers-reduced-motion:reduce){ .bar i{transition:none} }
+</style>
+
+<div class="wrap">
+<header>
+  <div class="brand"><span class="kl">KL<small>01</small></span>Klaus Labs · Aula Paperclip</div>
+  <h1>Paperclip na Hostinger, <em>do 1 clique ao time rodando</em></h1>
+  <p class="lede">O template de 1 clique da Hostinger entrega o Paperclip com alguns detalhes faltando. Siga os passos na ordem: um comando arruma o servidor, dois ajustes arrumam o agente, e o seu CEO monta o time sozinho.</p>
+  <div class="progress"><span id="count">0 de 9</span><div class="bar"><i id="fill"></i></div></div>
+</header>
+
+<div class="warn">
+  <b>Antes de começar</b>
+  <p>Não reinicie, atualize nem reimplante a VPS pelo painel no meio do caminho. Isso recria o Paperclip e desfaz os passos 3 e 5. Se acontecer, rode os comandos dos passos 3 e 5 de novo, nessa ordem. O login do Claude não se perde.</p>
+</div>
+
+<h2>Passo a passo</h2>
+<p class="sub">Marque cada passo ao terminar. O progresso fica salvo neste navegador.</p>
+
+<ol class="steps">
+  <li class="step" data-id="s1"><div class="num">1</div><div class="body">
+    <div class="head"><h3>Instale o Paperclip pelo 1 clique</h3><label class="check"><input type="checkbox" id="c-s1"> feito</label></div>
+    <p>Na Hostinger, contrate a VPS e escolha o aplicativo <b>Paperclip</b> na instalação de 1 clique. Espere o painel mostrar que está pronto.</p>
+    <p class="meta">Ainda não tem VPS: <a href="https://www.hostinger.com/br?REFERRALCODE=OX4DIEGOR8B5" target="_blank" rel="noopener">link de indicação da Hostinger</a></p>
+  </div></li>
+
+  <li class="step" data-id="s2"><div class="num">2</div><div class="body">
+    <div class="head"><h3>Abra o terminal da VPS</h3><label class="check"><input type="checkbox" id="c-s2"> feito</label></div>
+    <p>No painel da Hostinger, abra o <b>Terminal</b> da VPS.</p>
+    <p>Se a linha começar com <code class="i">node@</code>, o terminal abriu dentro do Paperclip. Digite <code class="i">exit</code> e aperte Enter. A linha tem que começar com <code class="i">root@</code>.</p>
+  </div></li>
+
+  <li class="step" data-id="s3"><div class="num">3</div><div class="body">
+    <div class="head"><h3>Cole o comando de preparação</h3><label class="check"><input type="checkbox" id="c-s3"> feito</label></div>
+    <p>Ele acha o seu Paperclip sozinho, instala o Python (o login do Claude precisa dele) e corrige o endereço https (sem isso os Connectors não abrem). Leva uns 2 minutos.</p>
+    <div class="code"><button class="copy" type="button" data-target="cmd">Copiar</button><pre id="cmd">bash &lt;&lt;'EOF'
+echo "== Parte 1: preparar o Paperclip (Hostinger 1 clique) =="
+C=$(docker ps --format '{{.Names}}' | grep -E 'paperclip-[0-9]+$' | head -n1)
+[ -z "$C" ] &amp;&amp; { echo "ERRO: nao achei o container do Paperclip. Rode: docker ps"; exit 1; }
+D=$(docker inspect "$C" --format '{{ index .Config.Labels "com.docker.compose.project.working_dir" }}')
+F=$(docker inspect "$C" --format '{{ index .Config.Labels "com.docker.compose.project.config_files" }}')
+P=$(docker inspect "$C" --format '{{ index .Config.Labels "com.docker.compose.project" }}')
+S=$(docker inspect "$C" --format '{{ index .Config.Labels "com.docker.compose.service" }}')
+DOM=$(docker inspect "$C" | grep -oE '[a-z0-9-]+(\.[a-z0-9-]+)*\.hstgr\.cloud' | awk '{print length, $0}' | sort -rn | head -n1 | cut -d' ' -f2)
+[ -z "$DOM" ] &amp;&amp; DOM="$P.$(hostname).hstgr.cloud"
+URL="https://$DOM"
+echo "Container: $C | Pasta: $D | Endereco: $URL"
+echo "[1/3] Corrigindo o endereco https (para os Connectors funcionarem)..."
+cat &gt; "$D/docker-compose.override.yml" &lt;&lt;YML
+services:
+  $S:
+    environment:
+      PAPERCLIP_PUBLIC_URL: "$URL"
+YML
+ARGS=""; for f in $(echo "$F" | tr ',' ' '); do ARGS="$ARGS -f $f"; done
+(cd "$D" &amp;&amp; docker compose -p "$P" $ARGS -f "$D/docker-compose.override.yml" up -d) || { echo "ERRO ao recriar o container"; exit 1; }
+sleep 8
+C=$(docker ps --format '{{.Names}}' | grep -E 'paperclip-[0-9]+$' | head -n1)
+echo "[2/3] Instalando Python 3 (necessario para o login do Claude)..."
+docker exec -u root "$C" sh -c 'export DEBIAN_FRONTEND=noninteractive; apt-get update -qq &amp;&amp; apt-get install -y -qq python3 &gt;/dev/null; python3 --version'
+NV=$(docker exec "$C" node -v 2&gt;/dev/null); echo "Node: ${NV:-nao encontrado}"
+NM=$(echo "$NV" | tr -d 'v' | cut -d. -f1); [ "${NM:-0}" -lt 20 ] 2&gt;/dev/null &amp;&amp; echo "ATENCAO: Node abaixo do 20. Nao continue; mande um print na comunidade."
+echo "[3/3] Conferindo o endereco de retorno..."
+sleep 10
+curl -s "$URL/api/tools/oauth/client-metadata" | grep -o '"redirect_uris":\[[^]]*\]'
+echo "== PARTE 1 PRONTA. Confira: Python 3.x, Node 20 ou maior e o endereco acima comecando com https. Agora faca o login do Claude no Paperclip. =="
+EOF</pre></div>
+    <p>No final tem que aparecer: <b>Python 3</b>, <b>Node 20 ou maior</b> e um endereço começando com <b>https</b>.</p>
+    <p class="meta">O comando reinicia o Paperclip. Se ele já estava aberto no navegador, atualize a página (F5) antes de continuar.</p>
+  </div></li>
+
+  <li class="step" data-id="s4"><div class="num">4</div><div class="body">
+    <div class="head"><h3>Faça o onboarding até logar o Claude</h3><label class="check"><input type="checkbox" id="c-s4"> feito</label></div>
+    <p>Abra o Paperclip pelo endereço https do painel. Crie a empresa, crie o agente <b>CEO</b> com o Claude Code e faça o sign-in do Claude (Subscription).</p>
+    <p><b>Ainda não mande a missão.</b> Antes, mais um comando e um teste.</p>
+  </div></li>
+
+  <li class="step" data-id="s4b"><div class="num">5</div><div class="body">
+    <div class="head"><h3>Só depois do login, atualize o Claude</h3><label class="check"><input type="checkbox" id="c-s4b"> feito</label></div>
+    <p>Volte ao terminal da VPS e cole este comando. A ordem importa: se o Claude for atualizado antes do login, o login trava em "Preparing browser sign-in".</p>
+    <div class="code"><button class="copy" type="button" data-target="cmd2">Copiar</button><pre id="cmd2">C=$(docker ps --format '{{.Names}}' | grep -E 'paperclip-[0-9]+$' | head -n1); echo "Container: $C"; docker exec -u root "$C" sh -c 'npm install -g --allow-scripts=@anthropic-ai/claude-code @anthropic-ai/claude-code@latest &gt;/dev/null 2&gt;&amp;1; claude --version'</pre></div>
+    <p>No final tem que aparecer <b>2.1.3xx ou maior</b>.</p>
+  </div></li>
+
+
+  <li class="step" data-id="s6"><div class="num">6</div><div class="body">
+    <div class="head"><h3>Teste o CEO antes da missão</h3><label class="check"><input type="checkbox" id="c-s6"> feito</label></div>
+    <p>No CEO, clique em <b>Assign Task</b>, título <b>Teste</b>, descrição <b>Responda apenas: oi, estou funcionando.</b> e clique em <b>Run now</b>.</p>
+    <ul>
+      <li><b>Respondeu:</b> está tudo certo. Siga para o passo 7.</li>
+      <li><b>Deu "Claude Code 2.1.257 does not support this model":</b> vá em <span class="path">Agents › CEO › Harness / Runtime</span>. Se aparecer o botão <b>Upgrade runner</b>, clique nele. Se aparecer o campo <b>Execution engine</b>, troque para <b>Claude CLI</b>. Salve e rode o teste de novo.</li>
+    </ul>
+    <p class="meta">Um erro "Paperclip Runner requires a standard, planning, or ask task" vindo de um run do tipo Timer é normal: o agente acordou sem tarefa. Pode ignorar.</p>
+  </div></li>
+
+  <li class="step" data-id="s7"><div class="num">7</div><div class="body">
+    <div class="head"><h3>Dê as instruções de CEO</h3><label class="check"><input type="checkbox" id="c-s7"> feito</label></div>
+    <p>Em <span class="path">Agents › CEO › Instructions</span>, abra o <code class="i">AGENTS.md</code>, clique em <b>Edit</b>, cole o texto abaixo e salve. Com o arquivo vazio, o CEO não sabe delegar.</p>
+    <div class="code wrap-text"><button class="copy" type="button" data-target="agents">Copiar</button><pre id="agents"># CEO
+
+Você é o CEO desta empresa. Você responde ao conselho (o humano dono da empresa) e lidera os outros agentes. Fale sempre em português do Brasil.
+
+## Seu papel
+- Você não executa o trabalho operacional. Você planeja, contrata, delega, acompanha e presta contas.
+- Transforme cada objetivo da empresa em tarefas claras, com responsável, prazo e critério de pronto.
+- Atribua cada tarefa ao agente certo pelo cargo dele. Se ninguém do time serve, proponha uma contratação.
+
+## Contratações
+- Antes de contratar, descreva o cargo, o que ele faz, as ferramentas que vai usar e por que é necessário.
+- Só contrate depois da aprovação do conselho.
+
+## A cada heartbeat
+1. Veja se há aprovações pendentes e tarefas paradas ou com erro.
+2. Destrave o que puder: responda dúvidas, ajuste instruções, redistribua tarefas.
+3. Se um agente errar duas vezes na mesma tarefa, reescreva a instrução dele ou passe a tarefa para outro.
+4. Escale para o conselho só o que você não consegue resolver: orçamento, decisão de estratégia ou falta de acesso.
+
+## Regras
+- Nunca invente dados, resultados ou fontes. Se não sabe, diga que não sabe.
+- Não finja que uma etapa foi feita. Se uma ferramenta falhou, registre o erro na tarefa.
+- Nada que envolva dinheiro, cliente real ou envio público sai sem aprovação, a menos que o conselho já tenha autorizado por escrito.
+- Respeite o orçamento. Acima de 80% do mês, faça só o essencial e avise o conselho.
+
+## Prestação de contas
+Toda sexta, entregue ao conselho um resumo curto: o que foi feito, o que travou, quanto custou e o que vem na próxima semana.</pre></div>
+  </div></li>
+
+  <li class="step" data-id="s8"><div class="num">8</div><div class="body">
+    <div class="head"><h3>Mande a primeira missão</h3><label class="check"><input type="checkbox" id="c-s8"> feito</label></div>
+    <p>No CEO, clique em <b>Assign Task</b>, título <b>Montar a empresa IA do Dia</b>, cole o texto abaixo na descrição e clique em <b>Run now</b>.</p>
+    <div class="code wrap-text"><button class="copy" type="button" data-target="prompt">Copiar</button><pre id="prompt">Contexto: isto é uma demonstração para uma aula gravada. A empresa é fictícia, mas o trabalho é real: cada etapa precisa ser feita de verdade dentro do Paperclip. Não finja nenhuma etapa.
+
+Você é o CEO da "IA do Dia", uma newsletter diária sobre inteligência artificial para donos de pequenos negócios. Sua missão é fazer a empresa rodar sozinha. Você não escreve nada: contrata, delega, cobra resultado e me presta contas.
+
+Monte este time (proponha antes de contratar e espere minha aprovação):
+1. Repórter: toda manhã pesquisa as novidades de IA das últimas 24h e entrega as 5 mais úteis para pequenos negócios, com link da fonte.
+2. Redator: transforma a pauta em uma newsletter curta, em português simples, com uma dica prática no final.
+3. Revisor: confere fatos, links e tom. Se algo estiver errado, devolve ao Redator com o motivo.
+4. Publicador: publica a edição aprovada como um documento na tarefa do dia e atualiza o documento "Arquivo de edições" com a data e o título.
+
+Como a empresa roda:
+- Crie uma rotina diária às 7h que inicia o trabalho do Repórter. Cada agente passa a tarefa para o próximo.
+- Toda sexta, me entregue um relatório: edições publicadas, problemas e o que vai melhorar.
+- Se um agente travar ou errar duas vezes, ajuste a instrução dele ou redistribua a tarefa.
+
+Regras:
+- A primeira edição passa por mim antes de ser publicada. Depois, as próximas saem sem mim.
+- Nunca invente notícia. Sem fonte, não entra.
+
+Primeira entrega: organograma, descrição de cada cargo, a rotina configurada e o plano da primeira semana. Se faltar informação, faça até 3 perguntas antes.</pre></div>
+  </div></li>
+
+  <li class="step" data-id="s9"><div class="num">9</div><div class="body">
+    <div class="head"><h3>Aprove o time e veja a empresa andar</h3><label class="check"><input type="checkbox" id="c-s9"> feito</label></div>
+    <ul>
+      <li>Responda as perguntas do CEO na própria tarefa.</li>
+      <li>Aprove as contratações no <b>Inbox</b>. Os 4 agentes aparecem no organograma.</li>
+      <li>Se algum agente novo der o erro 2.1.257, faça nele o ajuste do passo 6.</li>
+      <li>Em <b>Routines</b>, rode a rotina das 7h agora para não esperar até amanhã.</li>
+      <li>Aprove a primeira edição. Daí em diante ela sai sozinha todo dia.</li>
+    </ul>
+  </div></li>
+</ol>
+
+<h2>Deu erro? Procure aqui</h2>
+<p class="sub">A mensagem aparece no Run do agente (Agents › nome › Runs).</p>
+<div class="table-wrap"><table>
+  <thead><tr><th>Mensagem</th><th>O que fazer</th></tr></thead>
+  <tbody>
+    <tr><td>Browser sign-in requires Python 3</td><td>Rode o comando do passo 3.</td></tr>
+    <tr><td>Connect a model fica em "Preparing browser sign-in..."</td><td>O Claude foi atualizado antes do login. Volte a versão original com <code class="i">docker exec -u root NOME_DO_CONTAINER npm install -g --allow-scripts=@anthropic-ai/claude-code @anthropic-ai/claude-code@2.1.257</code>, dê F5, faça o login e depois rode o passo 5.</td></tr>
+    <tr><td>Claude Code 2.1.257 does not support this model</td><td>Passo 6: Upgrade runner ou Execution engine = Claude CLI no agente que deu o erro.</td></tr>
+    <tr><td>ACP agent reported a terminal service failure</td><td>Abra o Run e leia a linha de baixo. Quase sempre é o erro acima: passo 6.</td></tr>
+    <tr><td>requested isolated_workspace with git_worktree … is not a git checkout</td><td>Se existir a opção em Settings › Experimental, desligue o isolated workspace. Depois crie uma tarefa nova e mude a antiga para Cancelled.</td></tr>
+    <tr><td>The authorization server rejected Paperclip's callback URL</td><td>O endereço https não foi corrigido. Rode o comando do passo 3.</td></tr>
+    <tr><td>docker: command not found</td><td>O terminal está dentro do Paperclip (node@). Digite exit e cole de novo.</td></tr>
+    <tr><td>Tudo voltou a dar erro depois de atualizar a VPS</td><td>A atualização recria o Paperclip. Rode os comandos dos passos 3 e 5 de novo.</td></tr>
+    <tr><td>O CEO responde mas não contrata ninguém</td><td>Confira o AGENTS.md (passo 7) e se há aprovação esperando no Inbox.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>Dúvida: o Node veio abaixo do 20</h2>
+<p class="sub">Só use se o passo 3 mostrar "ATENÇÃO: Node abaixo do 20". O Node é o que roda o próprio Paperclip, então não atualize sem precisar.</p>
+<div class="code"><button class="copy" type="button" data-target="cmdnode">Copiar</button><pre id="cmdnode">bash &lt;&lt;'EOF'
+C=$(docker ps --format '{{.Names}}' | grep -E 'paperclip-[0-9]+$' | head -n1)
+[ -z "$C" ] &amp;&amp; { echo "ERRO: nao achei o container do Paperclip."; exit 1; }
+W=$(docker exec "$C" sh -c 'command -v node')
+echo "Container: $C | Node atual: $(docker exec "$C" node -v) em $W"
+[ "$W" = "/usr/local/bin/node" ] || { echo "ERRO: o Node nao esta no lugar esperado. Nao atualize; mande um print na comunidade."; exit 1; }
+T=$(curl -fsSL https://nodejs.org/dist/latest-v24.x/SHASUMS256.txt | grep -oE 'node-v[0-9.]+-linux-x64\.tar\.gz' | head -n1)
+[ -z "$T" ] &amp;&amp; { echo "ERRO: nao consegui achar o Node 24 no site oficial."; exit 1; }
+echo "Baixando $T..."
+curl -fsSL -o "/tmp/$T" "https://nodejs.org/dist/latest-v24.x/$T" || { echo "ERRO no download"; exit 1; }
+docker cp "/tmp/$T" "$C:/tmp/node.tar.gz"
+docker exec -u root "$C" tar -xzf /tmp/node.tar.gz -C /usr/local --strip-components=1 --exclude='*/CHANGELOG.md' --exclude='*/LICENSE' --exclude='*/README.md'
+docker restart "$C" &gt;/dev/null &amp;&amp; sleep 10
+echo "Node agora: $(docker exec "$C" node -v)"
+echo "== Abra o Paperclip (F5). Se ele nao abrir, mande um print na comunidade. =="
+EOF</pre></div>
+<p class="meta">Instala o Node 24 oficial dentro do Paperclip e reinicia ele (sem apagar nada). Se você atualizar ou reimplantar a VPS pelo painel, rode de novo junto com os passos 3 e 5.</p>
+
+<h2>Extra: conectar Gmail e Planilhas</h2>
+<p class="sub">Opcional, depois do time rodando. Graças ao endereço https do passo 3, os Connectors funcionam.</p>
+<ol class="steps">
+  <li class="step" data-id="x1"><div class="num">A</div><div class="body">
+    <div class="head"><h3>Conecte o Composio</h3><label class="check"><input type="checkbox" id="c-x1"> feito</label></div>
+    <p>No Paperclip, abra <span class="path">Connectors</span>, escolha <b>Composio</b>, clique em <b>Connect Composio</b> e autorize o <b>Gmail</b> e o <b>Google Sheets</b> quando ele pedir.</p>
+    <p>No Google Drive, crie uma planilha chamada <b>IA do Dia - Assinantes</b> com duas abas: <b>Assinantes</b> (Nome, E-mail, Data de inscrição, Ativo) e <b>Edições</b> (Data, Título, Enviados, Status, Observações). Na aba Assinantes, coloque só e-mails seus para o teste.</p>
+  </div></li>
+  <li class="step" data-id="x2"><div class="num">B</div><div class="body">
+    <div class="head"><h3>Teste a planilha</h3><label class="check"><input type="checkbox" id="c-x2"> feito</label></div>
+    <p>Crie uma tarefa para o agente com o título <b>Teste de conexão com a planilha</b> e esta descrição. Ele lê a planilha e escreve uma linha, sem enviar e-mail.</p>
+    <div class="code wrap-text"><button class="copy" type="button" data-target="t1">Copiar</button><pre id="t1">Teste rápido da conexão com o Google Sheets pelo Composio. Não envie nenhum e-mail.
+
+1. Encontre no Google Sheets a planilha "IA do Dia - Assinantes".
+2. Leia a aba "Assinantes" e me diga quantas linhas de assinantes existem (não precisa listar os e-mails).
+3. Na aba "Edições", acrescente uma linha nova com:
+   Data: a data de hoje
+   Título: TESTE de conexão
+   Enviados: 0
+   Status: teste
+   Observações: linha criada pelo agente para testar a conexão
+4. Leia a aba "Edições" de novo e confirme que a linha aparece.
+
+Responda nesta tarefa com: o que encontrou, o número de assinantes, a confirmação da linha escrita e o link da planilha.
+
+Se não encontrar a planilha ou alguma etapa falhar, não invente o resultado: diga exatamente em qual etapa parou e qual foi o erro.</pre></div>
+  </div></li>
+  <li class="step" data-id="x3"><div class="num">C</div><div class="body">
+    <div class="head"><h3>Teste o envio de e-mail</h3><label class="check"><input type="checkbox" id="c-x3"> feito</label></div>
+    <p>Título <b>Teste de envio da newsletter</b>. Este envia de verdade para quem está na aba Assinantes.</p>
+    <div class="code wrap-text"><button class="copy" type="button" data-target="t2">Copiar</button><pre id="t2">Teste de envio por e-mail pelo Gmail (Composio). Isto é um teste da aula: envie de verdade, não simule.
+
+1. Abra a planilha "IA do Dia - Assinantes" e leia a aba "Assinantes". Use só as linhas com "Ativo" = Sim e com um e-mail válido. Se encontrar algum e-mail com "TROQUE" no texto, pule esse e me avise.
+2. Envie pelo Gmail um e-mail para cada assinante válido com:
+   Assunto: IA do Dia - teste de envio
+   Corpo: Olá, [nome]! Este é um e-mail de teste da IA do Dia, enviado automaticamente pelo time de agentes do Paperclip. Se você recebeu, a distribuição está funcionando.
+3. Na aba "Edições", acrescente uma linha com:
+   Data: a data de hoje
+   Título: TESTE de envio
+   Enviados: quantos e-mails saíram de fato
+   Status: enviado (ou "falhou" se nenhum saiu)
+   Observações: para quem foi e qualquer erro
+4. Responda nesta tarefa: quantos e-mails saíram, para quem, e se algum falhou com o motivo.
+
+Não envie para ninguém fora da aba "Assinantes". Se uma etapa falhar, não invente o resultado: diga em qual etapa parou e qual foi o erro.</pre></div>
+  </div></li>
+</ol>
+
+<h2>Continue aprendendo</h2>
+<p class="sub">Mais aulas de agentes de IA no canal: <a href="https://www.youtube.com/@diegorgo" target="_blank" rel="noopener">youtube.com/@diegorgo</a></p>
+
+<footer><span>Klaus Labs · klauslabs.com.br/grupo</span><button class="reset" type="button" id="reset">Desmarcar tudo</button></footer>
+</div>
+
+<script>
+(function(){
+  var KEY='kl-paperclip-hostinger-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var all=[].slice.call(document.querySelectorAll('.step input[type=checkbox]')); var boxes=all.filter(function(b){return b.id.indexOf('c-x')!==0;});
+  function render(){
+    var n=0;
+    all.forEach(function(b){ var li=b.closest('.step'); var on=!!state[li.dataset.id]; b.checked=on; li.classList.toggle('done',on); if(on&&boxes.indexOf(b)>-1)n++; });
+    document.getElementById('count').textContent=n+' de '+boxes.length;
+    document.getElementById('fill').style.width=(n/boxes.length*100)+'%';
+  }
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+  all.forEach(function(b){ b.addEventListener('change',function(){ state[b.closest('.step').dataset.id]=b.checked; save(); render(); }); });
+  document.getElementById('reset').addEventListener('click',function(){ state={}; save(); render(); });
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var pre=document.getElementById(btn.dataset.target), text=pre.textContent;
+      function done(){ btn.textContent='Copiado'; btn.classList.add('ok'); setTimeout(function(){ btn.textContent='Copiar'; btn.classList.remove('ok'); },1800); }
+      function fallback(){ var r=document.createRange(); r.selectNodeContents(pre); var s=window.getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent='Selecionado: Ctrl+C'; }
+      try{ navigator.clipboard.writeText(text).then(done,fallback); }catch(e){ fallback(); }
+    });
+  });
+  render();
+})();
+</script>

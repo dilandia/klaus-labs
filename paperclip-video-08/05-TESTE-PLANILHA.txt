@@ -1,0 +1,15 @@
+Teste rápido da conexão com o Google Sheets pelo Composio. Não envie nenhum e-mail.
+
+1. Encontre no Google Sheets a planilha "IA do Dia - Assinantes".
+2. Leia a aba "Assinantes" e me diga quantas linhas de assinantes existem (não precisa listar os e-mails).
+3. Na aba "Edições", acrescente uma linha nova com:
+   Data: a data de hoje
+   Título: TESTE de conexão
+   Enviados: 0
+   Status: teste
+   Observações: linha criada pelo agente para testar a conexão
+4. Leia a aba "Edições" de novo e confirme que a linha aparece.
+
+Responda nesta tarefa com: o que encontrou, o número de assinantes, a confirmação da linha escrita e o link da planilha.
+
+Se não encontrar a planilha ou alguma etapa falhar, não invente o resultado: diga exatamente em qual etapa parou e qual foi o erro.

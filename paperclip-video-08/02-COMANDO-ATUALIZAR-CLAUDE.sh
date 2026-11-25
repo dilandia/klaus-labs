@@ -1,0 +1,1 @@
+C=$(docker ps --format '{{.Names}}' | grep -E 'paperclip-[0-9]+$' | head -n1); echo "Container: $C"; docker exec -u root "$C" sh -c 'npm install -g --allow-scripts=@anthropic-ai/claude-code @anthropic-ai/claude-code@latest >/dev/null 2>&1; claude --version'

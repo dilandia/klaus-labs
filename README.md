@@ -41,6 +41,15 @@ Funciona no OpenBot, Hermes, Claude Code, Codex, Cursor, Gemini CLI, ChatGPT, Cl
 - Pasta: [segundo-cerebro](segundo-cerebro)
 - Link para mandar ao seu agente: `https://raw.githubusercontent.com/dilandia/klaus-labs/main/segundo-cerebro/segundo-cerebro/SKILL.md`
 
+### 4. Paperclip do zero: empresa de agentes de IA
+
+[![Paperclip do zero: um CEO de IA que contrata agentes](imagens/paperclip-video-08.jpg)](paperclip-video-08)
+
+**Uma empresa de agentes de IA rodando sozinha na sua VPS.** O Paperclip na Hostinger em 1 clique, um comando que deixa a VPS pronta e um CEO de IA que contrata o time (repórter, redator, revisor e publicador) e faz a newsletter sair todo dia às 7h. Vem com o guia interativo de 9 passos, os comandos, as instruções do CEO, a primeira missão e os testes de Gmail e Planilhas. É o material da [aula no YouTube](https://youtu.be/YlXWwWSbBUI).
+
+- Pasta: [paperclip-video-08](paperclip-video-08)
+- Link para mandar ao seu agente: `https://raw.githubusercontent.com/dilandia/klaus-labs/main/paperclip-video-08/README.md`
+
 ---
 
 ## Como usar com o seu agente (sem baixar nada)

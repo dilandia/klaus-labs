@@ -1,0 +1,15 @@
+Teste de envio por e-mail pelo Gmail (Composio). Isto é um teste da aula: envie de verdade, não simule.
+
+1. Abra a planilha "IA do Dia - Assinantes" e leia a aba "Assinantes". Use só as linhas com "Ativo" = Sim e com um e-mail válido. Se encontrar algum e-mail com "TROQUE" no texto, pule esse e me avise.
+2. Envie pelo Gmail um e-mail para cada assinante válido com:
+   Assunto: IA do Dia - teste de envio
+   Corpo: Olá, [nome]! Este é um e-mail de teste da IA do Dia, enviado automaticamente pelo time de agentes do Paperclip. Se você recebeu, a distribuição está funcionando.
+3. Na aba "Edições", acrescente uma linha com:
+   Data: a data de hoje
+   Título: TESTE de envio
+   Enviados: quantos e-mails saíram de fato
+   Status: enviado (ou "falhou" se nenhum saiu)
+   Observações: para quem foi e qualquer erro
+4. Responda nesta tarefa: quantos e-mails saíram, para quem, e se algum falhou com o motivo.
+
+Não envie para ninguém fora da aba "Assinantes". Se uma etapa falhar, não invente o resultado: diga em qual etapa parou e qual foi o erro.
